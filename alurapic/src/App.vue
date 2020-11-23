@@ -3,7 +3,7 @@
 	<h1>{{ title }}</h1>
 	<div class="content" >
 		<div v-for="foto of fotos" class="images-content">
-			<h2>{{ foto.titulo }}</h2>
+			<Painel :titulo="foto.titulo"/>
 			<img :src='foto.url' :title='foto.titulo' :alt='foto.titulo' class='images'>
 		</div>
 	</div>
@@ -11,7 +11,10 @@
 </template>
 
 <script>
+import Painel from './components/Painel';
+
 export default {
+	components: {Painel},
 	data() {
 		return {
 			title: 'Projeto Alura Pic',
@@ -23,7 +26,6 @@ export default {
 			.then(response => response.json())
 			.then(fotos => this.fotos = fotos)
 			.catch(err => console.log(err))
-		console.log(this.fotos)
 	}
 }
 </script>
@@ -52,15 +54,6 @@ body {
 	padding: 10px;
 	box-sizing: border-box;
 	margin-bottom: 10px;
-}
-.images-content h2 {
-	background: #3498db;
-	margin-bottom: 0;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 5px solid #000;
 }
 
 .images {
