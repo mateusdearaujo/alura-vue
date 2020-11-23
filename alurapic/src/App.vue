@@ -1,8 +1,11 @@
 <template>
 <div class="container">
 	<h1>{{ title }}</h1>
+	<label>
+		<input v-on:input="filtro = $event.target.value" type="text" class="filtro" placeholder="Busque pelo titulo">
+	</label>
 	<div class="content" >
-		<div v-for="foto of fotos" class="images-content">
+		<div v-for="foto of fotosComFiltro" class="images-content">
 			<Painel :titulo="foto.titulo"/>
 			<img :src='foto.url' :title='foto.titulo' :alt='foto.titulo' class='images'>
 		</div>
@@ -18,7 +21,8 @@ export default {
 	data() {
 		return {
 			title: 'Projeto Alura Pic',
-			fotos: []
+			fotos: [],
+			filtro: ''
 		}
 	},
 	created() {
@@ -26,6 +30,16 @@ export default {
 			.then(response => response.json())
 			.then(fotos => this.fotos = fotos)
 			.catch(err => console.log(err))
+	},
+	computed: {
+		fotosComFiltro() {
+			if(this.filtro) {
+				let exp = new RegExp(this.filtro.trim(), 'i')
+				return this.fotos.filter(foto => exp.test(foto.titulo))
+			} else {
+				return this.fotos;
+			}
+		}
 	}
 }
 </script>
@@ -50,7 +64,7 @@ body {
 }
 
 .images-content {
-	width: 25%;
+	width: 50%;
 	padding: 10px;
 	box-sizing: border-box;
 	margin-bottom: 10px;
@@ -63,4 +77,11 @@ body {
 	-moz-box-shadow: 10px 10px 29px -5px rgba(0,0,0,0.75);
 	box-shadow: 10px 10px 29px -5px rgba(0,0,0,0.75);
 }
+
+.filtro {
+	display: block;
+	width: 40%;
+	margin: 0 auto;
+}
+
 </style>
