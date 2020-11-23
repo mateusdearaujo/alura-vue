@@ -6,8 +6,7 @@
 	</label>
 	<div class="content" >
 		<div v-for="foto of fotosComFiltro" class="images-content">
-			<Painel :titulo="foto.titulo"/>
-			<img :src='foto.url' :title='foto.titulo' :alt='foto.titulo' class='images'>
+			<Painel :titulo="foto.titulo" :url="foto.url"/>
 		</div>
 	</div>
 </div>
@@ -68,14 +67,6 @@ body {
 	padding: 10px;
 	box-sizing: border-box;
 	margin-bottom: 10px;
-}
-
-.images {
-	width: 100%;
-	height: 280px;
-	-webkit-box-shadow: 10px 10px 29px -5px rgba(0,0,0,0.75);
-	-moz-box-shadow: 10px 10px 29px -5px rgba(0,0,0,0.75);
-	box-shadow: 10px 10px 29px -5px rgba(0,0,0,0.75);
 }
 
 .filtro {
